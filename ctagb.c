@@ -4,10 +4,14 @@
 #include "ctagbTiles.h"
 #include "ctagbMap.h"
 #include "basketSprite.h"
+#include "appleSprite.h"
 
 // Got coordinates from GB Map Builder by multiplying coordinates by 8
 uint8_t basketX = 72;
 uint8_t basketY = 136;
+
+uint8_t appleX = 56;
+uint8_t appleY = 72;
 
 void main() {
 
@@ -19,7 +23,7 @@ void main() {
     // and lays them out on the plate (screen)
     set_bkg_tiles(0, 0, 32, 32, ctagbMap);
 
-    // Sprite setup
+    // Basket Sprite setup
     set_sprite_data(0, 3, basketSprite);
 
     // Since sprites on the GB have to be one tile,
@@ -28,10 +32,16 @@ void main() {
     set_sprite_tile(1, 1);
     set_sprite_tile(2, 2);
 
-    // Draws sprites on screen with specific coordinates
     move_sprite(0, basketX, basketY);
     move_sprite(1, basketX + 8, basketY);
     move_sprite(2, basketX + 16, basketY);
+
+    // Apple Sprite
+    set_sprite_data(3, 1, appleSprite);
+
+    set_sprite_tile(3, 3);
+
+    move_sprite(3, appleX, appleY);
 
     SHOW_SPRITES;
     SHOW_BKG;
@@ -39,6 +49,29 @@ void main() {
 
     while(1) 
     {
+        uint8_t input = joypad();
+
+        // Stands for Joypad (d-pad) left
+        if (input & J_LEFT) {
+            if (basketX > 8) {
+                basketX -= 1; // only move by one pixel to the left if not on edge of screen 
+            }
+        }
+
+        if (input & J_RIGHT) {
+            if (basketX < 144) {
+                basketX += 1; // only move by one pixel to the right if not on edge of screen 
+            }
+        }
+
+        // Draws sprites on screen with specific coordinates
+        move_sprite(0, basketX, basketY);
+        move_sprite(1, basketX + 8, basketY);
+        move_sprite(2, basketX + 16, basketY);
+
+        appleY += 1;
+        move_sprite(3, appleX, appleY);
+
         wait_vbl_done();
     }
 }
