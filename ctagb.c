@@ -13,7 +13,7 @@ uint8_t basketY = 136;
 uint8_t appleX = 56;
 uint8_t appleY = 72;
 
-void main() {
+int main(void) {
 
     // Loads the background tile data, 
     // kinda like adding items on a menu to pick from
