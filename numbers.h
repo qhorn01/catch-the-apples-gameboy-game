@@ -1,6 +1,6 @@
 /*
 
- CTAGBTILES.H
+ NUMBERS.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 14
+  Tiles                : 0 to 9
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -24,8 +24,8 @@
 
 
 /* Bank of tiles. */
-#define ctagbTilesBank 0
+#define numbersBank 0
 /* Start of tile array. */
-extern unsigned char ctagbTiles[];
+extern unsigned char numbers[];
 
-/* End of CTAGBTILES.H */
+/* End of NUMBERS.H */
