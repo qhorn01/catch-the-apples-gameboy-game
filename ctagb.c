@@ -1,6 +1,7 @@
 #include <gb/gb.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "ctagbTiles.h"
 #include "ctagbMap.h"
@@ -12,15 +13,17 @@
 uint8_t basketX = 72;
 uint8_t basketY = 136;
 
-uint8_t appleX = 8;
+uint8_t appleX = 56;
 uint8_t appleY = 72;
 
 uint8_t score = 0;
 
+bool isCollision;
+
 // Declaring score function
 void scoreText(uint8_t scoreNum);
 
-uint8_t collisionCheck(uint8_t , uint8_t);
+bool collisionCheck(uint8_t basketX, uint8_t basketLength, uint8_t appleX, uint8_t appleY);
 
 int main(void) {
 
@@ -80,13 +83,17 @@ int main(void) {
         move_sprite(2, basketX + 16, basketY);
 
         appleY += 1;
-        if (appleY > 168) { // Resets the apple to its original position if it leaves the screen
+        isCollision = collisionCheck(basketX, 24, appleX, appleY);
+
+        if (isCollision == true){
             appleY = 72;
             score++;
 
             // Function calls
             scoreText(score);
-        } 
+        } else if (isCollision == false && appleY > 168) { // Resets the apple to its original position if it leaves the screen
+            appleY = 72;
+        }
 
         move_sprite(3, appleX, appleY);
         
@@ -94,6 +101,26 @@ int main(void) {
         wait_vbl_done();
     }
 } // Ends main/driver
+
+// Defining collision function
+bool collisionCheck(uint8_t basketX, uint8_t basketLength, uint8_t appleX, uint8_t appleY){
+    uint8_t left = basketX;
+    uint8_t right = basketX+basketLength;
+    uint8_t applePixTarget = appleX + 4;
+
+    if (left < applePixTarget && right < applePixTarget){
+        return false;
+    }else if (left > applePixTarget && right > applePixTarget){
+        return false;
+    } else if (left <= applePixTarget && right >= applePixTarget){
+        if (appleY == 136){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    return false;
+}
 
 // Defining score function
 void scoreText(uint8_t scoreNum){
