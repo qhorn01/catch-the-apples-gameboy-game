@@ -12,11 +12,15 @@
 uint8_t basketX = 72;
 uint8_t basketY = 136;
 
-uint8_t appleX = 56;
+uint8_t appleX = 8;
 uint8_t appleY = 72;
+
+uint8_t score = 0;
 
 // Declaring score function
 void scoreText(uint8_t scoreNum);
+
+uint8_t collisionCheck(uint8_t , uint8_t);
 
 int main(void) {
 
@@ -49,9 +53,6 @@ int main(void) {
 
     move_sprite(3, appleX, appleY);
 
-    // Function calls
-    scoreText(0);
-
     SHOW_SPRITES;
     SHOW_BKG;
     DISPLAY_ON;
@@ -81,8 +82,14 @@ int main(void) {
         appleY += 1;
         if (appleY > 168) { // Resets the apple to its original position if it leaves the screen
             appleY = 72;
-        }
+            score++;
+
+            // Function calls
+            scoreText(score);
+        } 
+
         move_sprite(3, appleX, appleY);
+        
 
         wait_vbl_done();
     }

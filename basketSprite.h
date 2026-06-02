@@ -22,10 +22,14 @@
 
 */
 
+#ifndef __basketSprite_h_INCLUDE
+#define __basketSprite_h_INCLUDE
 
 /* Bank of tiles. */
 #define basketSpriteBank 0
 /* Start of tile array. */
-extern unsigned char basketSprite[];
+extern const unsigned char basketSprite[];
+
+#endif
 
 /* End of BASKETSPRITE.H */

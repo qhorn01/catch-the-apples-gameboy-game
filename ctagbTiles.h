@@ -22,10 +22,14 @@
 
 */
 
+#ifndef __ctagbTiles_h_INCLUDE
+#define __ctagbTiles_h_INCLUDE
 
 /* Bank of tiles. */
 #define ctagbTilesBank 0
 /* Start of tile array. */
-extern unsigned char ctagbTiles[];
+extern const unsigned char ctagbTiles[];
+
+#endif
 
 /* End of CTAGBTILES.H */

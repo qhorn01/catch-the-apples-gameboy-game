@@ -22,10 +22,14 @@
 
 */
 
+#ifndef __appleSprite_h_INCLUDE
+#define __appleSprite_h_INCLUDE
 
 /* Bank of tiles. */
 #define appleSpriteBank 0
 /* Start of tile array. */
-extern unsigned char appleSprite[];
+extern const unsigned char appleSprite[];
+
+#endif
 
 /* End of APPLESPRITE.H */
