@@ -6,11 +6,19 @@
 #include "functionLibrary.h"
 #include "loadScreens.h"
 
+#include "startTiles.h"
+#include "startMap.h"
 #include "ctagbTiles.h"
 #include "ctagbMap.h"
 #include "numbers.h"
 #include "basketSprite.h"
 #include "appleSprite.h"
+
+GameState currentState = START;
+
+bool isInit = false;
+
+uint8_t input = 0;
 
 // Got coordinates from GB Map Builder by multiplying coordinates by 8
 uint8_t basketX = 72;
@@ -25,12 +33,27 @@ bool isCollision;
 
 int main(void) {
 
-    initLevelTiles();
-
     while(1) 
     {
-        initLevelLogic();
-        
+        input = joypad();
+
+        switch(currentState) {
+            case START:
+                if (isInit == false){
+                    initStartTiles();
+                    isInit = true;
+                }
+                initStartLogic();
+                break;
+            case LEVEL:
+                if (isInit == false){
+                    initLevelTiles();
+                    isInit = true;
+                }
+                initLevelLogic();
+                break;
+        }
+
         wait_vbl_done();
     }
 } // Ends main/driver

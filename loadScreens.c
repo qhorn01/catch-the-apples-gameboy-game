@@ -4,6 +4,8 @@
 #include <stdbool.h>
 
 #include "functionLibrary.h"
+#include "startTiles.h"
+#include "startMap.h"
 #include "ctagbTiles.h"
 #include "ctagbMap.h"
 #include "numbers.h"
@@ -12,12 +14,36 @@
 
 # include "loadScreens.h"
 
+extern GameState currentState;
+
+extern bool isInit;
+extern uint8_t input;
+
 extern uint8_t basketX;
 extern uint8_t basketY;
 extern uint8_t appleX;
 extern uint8_t appleY;
 extern uint8_t score;
 extern bool isCollision;
+
+void initStartTiles(void) {
+    wait_vbl_done();
+    DISPLAY_OFF;
+
+    set_bkg_data(26, 87, startTiles);
+    set_bkg_tiles(0, 0, 32, 32, startMap);
+    
+    SHOW_BKG;
+    DISPLAY_ON;
+}
+
+void initStartLogic(void) {
+    if (input & J_START) {
+        currentState = LEVEL;
+
+        isInit = false;
+    }
+}
 
 void initLevelTiles(void) {
     wait_vbl_done();
@@ -57,7 +83,6 @@ void initLevelTiles(void) {
 }
 
 void initLevelLogic(void) {
-        uint8_t input = joypad();
 
         // Stands for Joypad (d-pad) left
         if (input & J_LEFT) {
