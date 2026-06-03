@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <rand.h>
 
 #include "functionLibrary.h"
 #include "startTiles.h"
@@ -61,13 +62,13 @@ void initLevelTiles(void) {
     set_bkg_tiles(0, 0, 32, 32, ctagbMap);
 
     // Place logic for storing tile info in an array here:
-    for (i = 0; i < 564; i++) {
+    /*for (i = 0; i < 564; i++) {
         if (ctagbMap[i] == 14){
             leafTiles[i] = i;
         }else{
             leafTiles[i] = 0;
         }
-    }
+    }*/
 
     // Basket Sprite setup
     set_sprite_data(0, 3, basketSprite);
@@ -119,12 +120,11 @@ void initLevelLogic(void) {
         scoreText(score);
 
         if (isCollision == true){
-            appleX = 88;
-            appleY = 72;
+            appleReset(ctagbMap, &appleX, &appleY);
+            
             score++;
         } else if (isCollision == false && appleY > 168) { // Resets the apple to its original position if it leaves the screen
-            appleX = 88;
-            appleY = 72;
+            appleReset(ctagbMap, &appleX, &appleY);
         }
 
         move_sprite(3, appleX, appleY);

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <rand.h>
 
 #include "functionLibrary.h"
 #include "loadScreens.h"
@@ -19,9 +20,6 @@ GameState currentState = START;
 bool isInit = false;
 
 uint8_t input = 0;
-
-uint16_t i = 0;
-uint16_t leafTiles[564] = {0};
 
 uint8_t basketX = 72;
 uint8_t basketY = 136;
