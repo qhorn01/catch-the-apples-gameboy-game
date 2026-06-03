@@ -20,7 +20,9 @@ bool isInit = false;
 
 uint8_t input = 0;
 
-// Got coordinates from GB Map Builder by multiplying coordinates by 8
+uint16_t i = 0;
+uint16_t leafTiles[564] = {0};
+
 uint8_t basketX = 72;
 uint8_t basketY = 136;
 

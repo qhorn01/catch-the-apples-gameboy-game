@@ -19,6 +19,9 @@ extern GameState currentState;
 extern bool isInit;
 extern uint8_t input;
 
+extern uint16_t i;
+extern uint16_t leafTiles[];
+
 extern uint8_t basketX;
 extern uint8_t basketY;
 extern uint8_t appleX;
@@ -56,6 +59,15 @@ void initLevelTiles(void) {
     // Orders the tiles from the menu (some more than others)
     // and lays them out on the plate (screen)
     set_bkg_tiles(0, 0, 32, 32, ctagbMap);
+
+    // Place logic for storing tile info in an array here:
+    for (i = 0; i < 564; i++) {
+        if (ctagbMap[i] == 14){
+            leafTiles[i] = i;
+        }else{
+            leafTiles[i] = 0;
+        }
+    }
 
     // Basket Sprite setup
     set_sprite_data(0, 3, basketSprite);
@@ -103,13 +115,15 @@ void initLevelLogic(void) {
         move_sprite(2, basketX + 16, basketY);
 
         appleY += 1;
-        isCollision = collisionCheck(basketX, 24, appleX, appleY);
+        isCollision = collisionCheck(basketX, basketY, 24, appleX, appleY);
         scoreText(score);
 
         if (isCollision == true){
+            appleX = 88;
             appleY = 72;
             score++;
         } else if (isCollision == false && appleY > 168) { // Resets the apple to its original position if it leaves the screen
+            appleX = 88;
             appleY = 72;
         }
 

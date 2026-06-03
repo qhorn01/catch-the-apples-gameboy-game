@@ -5,23 +5,20 @@
 #include "functionLibrary.h"
 
 // Defining collision function
-bool collisionCheck(uint8_t basketX, uint8_t basketLength, uint8_t appleX, uint8_t appleY){
+bool collisionCheck(uint8_t basketX, uint8_t basketY, uint8_t basketLength, uint8_t appleX, uint8_t appleY){
     uint8_t left = basketX;
     uint8_t right = basketX+basketLength;
     uint8_t applePixTarget = appleX + 4;
 
-    if (left < applePixTarget && right < applePixTarget){
-        return false;
-    }else if (left > applePixTarget && right > applePixTarget){
-        return false;
-    } else if (left <= applePixTarget && right >= applePixTarget){
-        if (appleY == 130){
+    if (left <= applePixTarget && right >= applePixTarget){
+        if (appleY == basketY-6){
             return true;
         }else{
             return false;
         }
+    }else{
+        return false;
     }
-    return false;
 }
 
 // Defining score function
