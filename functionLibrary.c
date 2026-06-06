@@ -13,9 +13,14 @@
 #include "basketSprite.h"
 #include "appleSprite.h"
 
+extern GameState currentState;
+extern bool isInit;
+
 static uint8_t frames;
 static uint8_t seconds;
 static uint8_t lastSeconds;
+
+static uint8_t gameOverSeconds;
 
 extern uint8_t basketX;
 extern uint8_t basketY;
@@ -68,7 +73,7 @@ void scoreText(uint8_t scoreNum, bool isGameOver){
 
 }
 
-bool timer(void){
+void timer(void){
     uint8_t tens, ones;
 
     if (seconds > 0) {
@@ -91,9 +96,23 @@ bool timer(void){
         }
 
     if (seconds == 0) {
-        return true;
-    }else{
-        return false;
+        currentState = GAMEOVER;
+        isInit = false;
+    }
+}
+
+void gameOverTimer(void){
+    if (gameOverSeconds > 0) {
+        frames++;
+        if (frames >= 60) {
+            frames = 0;
+            gameOverSeconds--;
+        }
+    }
+
+    if (gameOverSeconds == 0) {
+        currentState = START;
+        isInit = false;
     }
 }
 
@@ -101,6 +120,8 @@ void resetGame(void) {
     frames = 0;
     seconds = 60;
     lastSeconds = 61;
+
+    gameOverSeconds = 4;
 
     basketX = 72;
     basketY = 136;

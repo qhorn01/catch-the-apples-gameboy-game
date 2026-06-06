@@ -93,13 +93,7 @@ void initLevelTiles(void) {
 
 void initLevelLogic(void) {
         scoreText(score, false);
-        timeOut = timer();
-
-        if (timeOut == true) {
-            currentState = GAMEOVER;
-
-            isInit = false;
-        }
+        timer();
 
         // Stands for Joypad (d-pad) left
         if (input & J_LEFT) {
@@ -148,9 +142,5 @@ void initGameOverTiles(void) {
 
 void initGameOverLogic(void) {
     scoreText(score, true);
-    if (input & J_SELECT) {
-        currentState = START;
-
-        isInit = false;
-    }
+    gameOverTimer();
 }
