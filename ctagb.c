@@ -11,6 +11,7 @@
 #include "startMap.h"
 #include "ctagbTiles.h"
 #include "ctagbMap.h"
+#include "gameOverMap.h"
 #include "numbers.h"
 #include "basketSprite.h"
 #include "appleSprite.h"
@@ -18,16 +19,17 @@
 GameState currentState = START;
 
 bool isInit = false;
+bool timeOut;
 
 uint8_t input = 0;
 
-uint8_t basketX = 72;
-uint8_t basketY = 136;
+uint8_t basketX;
+uint8_t basketY;
 
-uint8_t appleX = 104;
-uint8_t appleY = 72;
+uint8_t appleX;
+uint8_t appleY;
 
-uint8_t score = 0;
+uint8_t score;
 
 bool isCollision;
 
@@ -52,8 +54,14 @@ int main(void) {
                 }
                 initLevelLogic();
                 break;
+            case GAMEOVER:
+                if (isInit == false){
+                    initGameOverTiles();
+                    isInit = true;
+                }
+                initGameOverLogic();
+                break;
         }
-
         wait_vbl_done();
     }
 } // Ends main/driver

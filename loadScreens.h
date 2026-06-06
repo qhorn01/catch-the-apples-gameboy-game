@@ -8,7 +8,8 @@
 
 typedef enum {
     START,
-    LEVEL
+    LEVEL,
+    GAMEOVER
 } GameState;
 
 void initStartTiles(void);
@@ -16,5 +17,8 @@ void initStartLogic(void);
 
 void initLevelTiles(void);
 void initLevelLogic(void);
+
+void initGameOverTiles(void);
+void initGameOverLogic(void);
 
 #endif

@@ -13,6 +13,10 @@
 #include "basketSprite.h"
 #include "appleSprite.h"
 
+static uint8_t frames = 0;
+static uint8_t seconds = 5;
+static uint8_t lastSeconds = 61;
+
 // Defining collision function
 bool collisionCheck(uint8_t basketX, uint8_t basketY, uint8_t basketLength, uint8_t appleX, uint8_t appleY){
     uint8_t left = basketX;
@@ -49,6 +53,41 @@ void scoreText(uint8_t scoreNum){
     set_bkg_tile_xy(6, 0, hundreds);
     set_bkg_tile_xy(7, 0, tens);
     set_bkg_tile_xy(8, 0, ones);
+}
+
+bool timer(void){
+    uint8_t tens, ones;
+
+    if (seconds > 0) {
+        frames++;
+        if (frames >= 60) {
+            frames = 0;
+            seconds--;
+        }
+    }
+
+    if (seconds != lastSeconds) {
+            lastSeconds = seconds;
+
+            tens = seconds / 10;
+            ones = seconds % 10;
+
+            set_bkg_tile_xy(18, 0, tens);
+            
+            set_bkg_tile_xy(19, 0, ones);
+        }
+
+    if (seconds == 0) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void resetGame(void) {
+    frames = 0;
+    seconds = 60;
+    lastSeconds = 61;
 }
 
 void appleReset(const unsigned char mapData[], uint8_t *newX, uint8_t *newY ){
