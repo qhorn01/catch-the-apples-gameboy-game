@@ -22,9 +22,6 @@ extern bool isInit;
 extern bool timeOut;
 extern uint8_t input;
 
-extern uint16_t i;
-extern uint16_t leafTiles[];
-
 extern uint8_t basketX;
 extern uint8_t basketY;
 extern uint8_t appleX;
@@ -84,13 +81,7 @@ void initLevelTiles(void) {
 
     move_sprite(3, appleX, appleY);
 
-    basketX = 72;
-    basketY = 136;
-
-    appleX = 104;
-    appleY = 72;
-
-    score = 0;
+    resetGame();
 
     SHOW_SPRITES;
     SHOW_BKG;
@@ -98,7 +89,7 @@ void initLevelTiles(void) {
 }
 
 void initLevelLogic(void) {
-        scoreText(score);
+        scoreText(score, false);
         timeOut = timer();
 
         if (timeOut == true) {
@@ -143,8 +134,9 @@ void initGameOverTiles(void) {
     wait_vbl_done();
     DISPLAY_OFF;
 
-    set_bkg_data(0, gameOverMap_TILE_COUNT, gameOverMap_tiles);
-    set_bkg_tiles(0, 0, gameOverMap_WIDTH / 8, gameOverMap_HEIGHT / 8, gameOverMap_map);
+    set_bkg_data(10, gameOverMap_TILE_COUNT, gameOverMap_tiles);
+    set_bkg_data(10, gameOverMap_TILE_COUNT, gameOverMap_tiles);
+    set_bkg_based_tiles(0, 0, gameOverMap_WIDTH / 8, gameOverMap_HEIGHT / 8, gameOverMap_map, 10);
     
     SHOW_BKG;
     HIDE_SPRITES;
@@ -152,9 +144,8 @@ void initGameOverTiles(void) {
 }
 
 void initGameOverLogic(void) {
+    scoreText(score, true);
     if (input & J_SELECT) {
-        resetGame();
-
         currentState = START;
 
         isInit = false;
