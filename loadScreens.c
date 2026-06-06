@@ -42,7 +42,10 @@ void initStartTiles(void) {
 }
 
 void initStartLogic(void) {
+    initrand(DIV_REG);
+
     if (input & J_START) {
+
         currentState = LEVEL;
 
         isInit = false;
